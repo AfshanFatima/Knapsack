@@ -7,39 +7,20 @@ from itertools import combinations
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
 def knapsack_solver(items, capacity):
-
-  single_item_list = [(item,) for item in items]
-  double_item_list = list(combinations(items, 2))
-  triple_item_list = list(combinations(items, 3))
-  quadruple_item_list = list(combinations(items, 4))
-  quintuple_item_list = list(combinations(items, 5))
-  sextuple_item_list = list(combinations(items, 6))
-  septuple_item_list = list(combinations(items, 7))
-  octuple_item_list = list(combinations(items, 8))
-  nonuple_item_list = list(combinations(items, 9))
-  decuple_item_list = list(combinations(items, 10))
-
   master_item_list = []
-  master_item_list.append(single_item_list)
-  #master_item_list.append(double_item_list)
-  #master_item_list.append(triple_item_list)
-  #master_item_list.append(quadruple_item_list)
-  #master_item_list.append(quintuple_item_list)
-  #master_item_list.append(sextuple_item_list)
-  #master_item_list.append(septuple_item_list)
-  #master_item_list.append(octuple_item_list)
-  #master_item_list.append(nonuple_item_list)
-  #master_item_list.append(decuple_item_list)
+  for i in range(len(items)):
+    master_item_list.append(list(combinations(items, i+1)))
+    
 
   def solve(master_list):
-    #print(master_list)
+    print(master_list[1])
 
     print('POTENTIAL SOLUTIONS: \n')
 
     for i in master_list:
-      print(f'CURRENT INDEX: {i[0][0].index}')
-      print(f'CURRENT SIZE: {i[0][0].size}')
-      print(f'CURRENT VALUE: {i[0][0].value}')
+      print(f'CURRENT INDEX: {i[4][2].index}')
+      print(f'CURRENT SIZE: {i[4][2].size}')
+      print(f'CURRENT VALUE: {i[4][2].value}')
 
     #(Item([1,2,3], 42+42+68, 81+42+56))
 
