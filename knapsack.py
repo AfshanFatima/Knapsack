@@ -6,8 +6,22 @@ from collections import namedtuple
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
 def knapsack_solver(items, capacity):
-  # !!!! IMPLEMENT ME
-  pass
+  sack = []
+  sort = sorted(items,reverse=True, key = lambda k: k[2] )
+  i = 0
+  for item in sort:
+    print('{} to be added'.format(item))
+    if i + item[1] < capacity:  
+      i = item[1] + i
+      sack.append(item)
+      print('{} added to sack.Sack currently has {} and is at capacity {}'.format(item,sack,i))
+    else:
+      pass
+
+    
+    
+    
+
 
 if __name__ == '__main__':
   if len(sys.argv) > 1:
