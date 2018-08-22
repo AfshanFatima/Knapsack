@@ -21,18 +21,34 @@ def knapsack_solver(items, capacity):
 
   master_item_list = []
   master_item_list.append(single_item_list)
-  master_item_list.append(double_item_list)
-  master_item_list.append(triple_item_list)
-  master_item_list.append(quadruple_item_list)
-  master_item_list.append(quintuple_item_list)
-  master_item_list.append(sextuple_item_list)
-  master_item_list.append(septuple_item_list)
-  master_item_list.append(octuple_item_list)
-  master_item_list.append(nonuple_item_list)
-  master_item_list.append(decuple_item_list)
+  #master_item_list.append(double_item_list)
+  #master_item_list.append(triple_item_list)
+  #master_item_list.append(quadruple_item_list)
+  #master_item_list.append(quintuple_item_list)
+  #master_item_list.append(sextuple_item_list)
+  #master_item_list.append(septuple_item_list)
+  #master_item_list.append(octuple_item_list)
+  #master_item_list.append(nonuple_item_list)
+  #master_item_list.append(decuple_item_list)
 
-  
+  def solve(master_list):
+    #print(master_list)
+
+    print('POTENTIAL SOLUTIONS: \n')
+
+    for i in master_list:
+      print(f'CURRENT INDEX: {i[0][0].index}')
+      print(f'CURRENT SIZE: {i[0][0].size}')
+      print(f'CURRENT VALUE: {i[0][0].value}')
+
+    #(Item([1,2,3], 42+42+68, 81+42+56))
+
+  solve(master_item_list)
+
   pass
+
+
+
 
 if __name__ == '__main__':
   if len(sys.argv) > 1:
