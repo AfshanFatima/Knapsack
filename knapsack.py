@@ -7,16 +7,20 @@ Item = namedtuple('Item', ['index', 'size', 'value'])
 
 def knapsack_solver(items, capacity):
   sack = []
-  sort = sorted(items,reverse=True, key = lambda k: k[2] )
+  fsort = sorted(items,reverse=True, key = lambda k: k[2] )
+  sort = sorted(fsort,key = lambda k: k[1])
   i = 0
+  total = 0
   for item in sort:
     print('{} to be added'.format(item))
     if i + item[1] < capacity:  
       i = item[1] + i
+      total = total + item[2]
       sack.append(item)
       print('{} added to sack.Sack currently has {} and is at capacity {}'.format(item,sack,i))
     else:
       pass
+  return total
 
     
     
