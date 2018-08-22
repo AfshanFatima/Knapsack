@@ -7,6 +7,9 @@ from itertools import combinations as combinations
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
 def knapsack_solver(items, capacity):
+
+  # optimized solution 
+
   sorted_items = sorted(items, key=lambda x: x[2]/x[1], reverse=True)
   for i in sorted_items:
     print(i)
@@ -23,6 +26,8 @@ def knapsack_solver(items, capacity):
       counter += 1
   return knapsack
 
+  # brute force solution 
+
   # counter = 0
   # new_knapsack_size = 0
   # new_knapsack_value = 0
@@ -30,7 +35,6 @@ def knapsack_solver(items, capacity):
   # best_knapsack = []
   # new_knapsack = []
   # comb_list = [x for l in range(1, len(items)) for x in combinations(items, l)]
-  # print(comb_list)
   # for c in comb_list:
   #   for i in c:
   #     new_knapsack_size += i[1]
