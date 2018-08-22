@@ -6,8 +6,35 @@ from collections import namedtuple
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
 def knapsack_solver(items, capacity):
-  # !!!! IMPLEMENT ME
-  pass
+  def helper(items, capacity, curr_val=0):
+  # 2. Base 1: we have no more items in the pile
+    print(items)
+    if not items:
+      print("current value", curr_val)
+      return curr_val
+      # 3. Base 2: we have one item left in the pile.
+      # Check to see if it fits in our bag's remaining capacity. If it does, take it. Otherwise discard it.
+
+    # if len(items) == 1:
+    #   if items[0].size < capacity:
+    #     items[0]
+    #   else:
+    #     return 0
+
+
+
+    elif items[0].size > capacity:
+      return helper(items[1:], capacity)
+
+    else:
+      r1 = helper(items[1:], capacity - items[0].size, curr_val + items[0].value)
+      r2 = helper(items[1:], capacity, curr_val)
+
+      return max(r1, r2)
+  return helper(items, capacity, 0)
+
+
+
 
 if __name__ == '__main__':
   if len(sys.argv) > 1:
@@ -21,6 +48,7 @@ if __name__ == '__main__':
       items.append(Item(int(data[0]), int(data[1]), int(data[2])))
     
     file_contents.close()
+    print("hi")
     print(knapsack_solver(items, capacity))
   else:
     print('Usage: knapsack.py [filename] [capacity]')
