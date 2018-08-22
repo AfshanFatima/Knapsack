@@ -22,7 +22,7 @@ def brute_force_solver(items, capacity):
   def maximum_value(combo):
     value = sum([x[2] for x in combo])
     size = sum([x[1] for x in combo])
-    return (value, ) if size <= capacity else (0, 0)
+    return (value, ) if size <= capacity else (0, )
 
   knapsack = max(combos, key=maximum_value)
 
