@@ -2,12 +2,38 @@
 
 import sys
 from collections import namedtuple
+from itertools import combinations
+from operator import itemgetter
 
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
 def knapsack_solver(items, capacity):
-  # !!!! IMPLEMENT ME
-  pass
+  possible = []
+  combos = []
+  total_size = 0
+  total_value = 0
+  total_index = 0
+
+  for row in range(len(items)):
+    for comb in combinations(items, row):
+      combos.append(comb)
+
+  for index in range(len(combos)):
+    combo = itemgetter(index)(combos)
+    sizes = [x[1] for x in combo]
+    if sum(sizes) < capacity:
+      possible.append(combo) 
+
+  for combo in possible:
+    indexes = [x[0] for x in combo]
+    sizes = [x[1] for x in combo]
+    value = sum([x[2] for x in combo])
+    if total_value < value:
+      total_value = value
+      total_size = sum(sizes)
+      total_index = indexes
+      
+  return f"Value: {total_value}\nSize: {total_size}\nChosen: {total_index}"
 
 if __name__ == '__main__':
   if len(sys.argv) > 1:
