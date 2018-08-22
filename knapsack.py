@@ -2,11 +2,36 @@
 
 import sys
 from collections import namedtuple
+from itertools import combinations
 
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
 def knapsack_solver(items, capacity):
-  # !!!! IMPLEMENT ME
+
+  single_item_list = [(item,) for item in items]
+  double_item_list = list(combinations(items, 2))
+  triple_item_list = list(combinations(items, 3))
+  quadruple_item_list = list(combinations(items, 4))
+  quintuple_item_list = list(combinations(items, 5))
+  sextuple_item_list = list(combinations(items, 6))
+  septuple_item_list = list(combinations(items, 7))
+  octuple_item_list = list(combinations(items, 8))
+  nonuple_item_list = list(combinations(items, 9))
+  decuple_item_list = list(combinations(items, 10))
+
+  master_item_list = []
+  master_item_list.append(single_item_list)
+  master_item_list.append(double_item_list)
+  master_item_list.append(triple_item_list)
+  master_item_list.append(quadruple_item_list)
+  master_item_list.append(quintuple_item_list)
+  master_item_list.append(sextuple_item_list)
+  master_item_list.append(septuple_item_list)
+  master_item_list.append(octuple_item_list)
+  master_item_list.append(nonuple_item_list)
+  master_item_list.append(decuple_item_list)
+
+  
   pass
 
 if __name__ == '__main__':
