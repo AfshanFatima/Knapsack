@@ -13,15 +13,24 @@ def knapsack_solver(items, capacity):
     
 
   def solve(master_list):
-    #print(master_list)
-
+    # print(master_list)
     print('POTENTIAL SOLUTIONS: \n')
-
+    # print(master_list[1])
     for i in master_list:
-      print(f'CURRENT INDEX: {i[0][0].index}')
-      print(f'CURRENT SIZE: {i[0][0].size}')
-      print(f'CURRENT VALUE: {i[0][0].value}')
-
+      for j in master_list[1]:
+          if j[0].size + j[1].size <= capacity:
+            print(f'INDEX: {j[0].index}, {j[1].index}')
+            print(f'SIZE: {j[0].size + j[1].size}')
+            print(f'VALUE: {j[0].value + j[1].value} \n')
+      break
+    for i in master_list:
+      for j in i:
+        if j[0].size <= capacity:
+          print(f'CURRENT INDEX: {j[0].index}')
+          print(f'CURRENT SIZE: {j[0].size}')
+          print(f'CURRENT VALUE: {j[0].value} \n')
+      break
+    # print(master_list[2])
     #(Item([1,2,3], 42+42+68, 81+42+56))
 
   solve(master_item_list)
