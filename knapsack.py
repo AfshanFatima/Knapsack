@@ -24,6 +24,13 @@ def knapsack_solver(items, capacity):
             print(f'VALUE: {j[0].value + j[1].value} \n')
       break
     for i in master_list:
+      for j in master_list[2]:
+          if j[0].size + j[1].size + j[2].size <= capacity:
+            print(f'INDEX: {j[0].index}, {j[1].index}, {j[2].index}')
+            print(f'SIZE: {j[0].size + j[1].size + j[2].size}')
+            print(f'VALUE: {j[0].value + j[1].value + j[2].value} \n')
+      break
+    for i in master_list:
       for j in i:
         if j[0].size <= capacity:
           print(f'CURRENT INDEX: {j[0].index}')
