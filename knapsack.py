@@ -4,6 +4,7 @@ import sys
 from collections import namedtuple
 from itertools import combinations
 from operator import itemgetter
+import time 
 
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
@@ -79,6 +80,32 @@ def knapsack_greedy(items, capacity):
       best_combo.append(item)
   return f"Value: {best_cost}\n Size: {size}\n Chosen: {best_combo}"
  
+def knapsack_dynamic(items, capacity):
+  table = [
+    [0 for w in range(capacity + 1)]
+    for j in range(len(items) + 1 )
+  ]
+  for j in range(1, len(items) + 1):
+    item, size, value = items[j-1]
+    for w in range(1, capacity + 1):
+      if size > w:
+        table[j][w] = table[j-1][w]
+      else: 
+        table[j][w] = max(table[j-1][w], table[j-1][w-size] + value)
+  result = []
+  cap = capacity
+  for j in range(len(items), 0, -1):
+    was_added = table[j][cap] != table[j-1][cap]
+
+    if was_added:
+      item, size, value = items[j-1]
+      result.append(items[j-1])
+      cap -= size
+  indexes = [index for index,_,_ in result]
+  value = sum([value for _,_,value in result])
+  size = sum([size for _,size,_ in result])
+  return f"Value: {value}\n Size: {size}\n Chosen: {indexes}"
+
 if __name__ == '__main__':
   if len(sys.argv) > 1:
     capacity = int(sys.argv[2])
@@ -91,7 +118,12 @@ if __name__ == '__main__':
       items.append(Item(int(data[0]), int(data[1]), int(data[2])))
 
     file_contents.close()
+    start = time.time()
+    # print(knapsack_dynamic(items, capacity))
     print(knapsack_greedy(items, capacity))
+    end = time.time()
+    print(f"Time elapsed: {end - start}")
+   
     # print(brute_force_solver(items, capacity))
     # print(knapsack_solver(items, capacity))
   else:
