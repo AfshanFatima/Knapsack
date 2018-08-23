@@ -5,10 +5,32 @@ from collections import namedtuple
 
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
+def knapsack_solver_greedy(items, capacity):
+  
+  bag = [ (item.size/ item.value, item.value, item.size) for item in items ]
+  sorted_bag = sorted( bag, key=lambda i: i[0] )
+
+  starting_capacity = 0
+  curr_value = 0
+
+  print(bag)
+  print("========================")
+  print(sorted_bag)
+
+  # loop through list to see if it fits
+  for i in sorted_bag:
+    if starting_capacity + i[2] < capacity:
+
+      starting_capacity += i[2]
+      curr_value += i[1]
+  return curr_value 
+
+
+
 def knapsack_solver(items, capacity):
-  def helper(items, capacity, curr_val=0):
+  def helper(items, capacity, curr_val):
   # 2. Base 1: we have no more items in the pile
-    print(items)
+    # print(items)
     if not items:
       print("current value", curr_val)
       return curr_val
@@ -24,9 +46,10 @@ def knapsack_solver(items, capacity):
 
 
     elif items[0].size > capacity:
-      return helper(items[1:], capacity)
+      return helper(items[1:], capacity, curr_val)
 
     else:
+
       r1 = helper(items[1:], capacity - items[0].size, curr_val + items[0].value)
       r2 = helper(items[1:], capacity, curr_val)
 
@@ -48,7 +71,7 @@ if __name__ == '__main__':
       items.append(Item(int(data[0]), int(data[1]), int(data[2])))
     
     file_contents.close()
-    print("hi")
-    print(knapsack_solver(items, capacity))
+    # print(knapsack_solver(items, capacity))
+    print(knapsack_solver_greedy(items, capacity))
   else:
     print('Usage: knapsack.py [filename] [capacity]')
