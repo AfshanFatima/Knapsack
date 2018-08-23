@@ -12,35 +12,65 @@ def knapsack_solver(items, capacity):
     master_item_list.append(list(combinations(items, i+1)))
     
 
-  def solve(master_list):
+  def solve(master_list, a):
     # print(master_list)
-    print('POTENTIAL SOLUTIONS: \n')
     # print(master_list[1])
-    for i in master_list:
-      for j in master_list[1]:
-          if j[0].size + j[1].size <= capacity:
-            print(f'INDEX: {j[0].index}, {j[1].index}')
-            print(f'SIZE: {j[0].size + j[1].size}')
-            print(f'VALUE: {j[0].value + j[1].value} \n')
-      break
-    for i in master_list:
-      for j in master_list[2]:
-          if j[0].size + j[1].size + j[2].size <= capacity:
-            print(f'INDEX: {j[0].index}, {j[1].index}, {j[2].index}')
-            print(f'SIZE: {j[0].size + j[1].size + j[2].size}')
-            print(f'VALUE: {j[0].value + j[1].value + j[2].value} \n')
-      break
-    for i in master_list:
-      for j in i:
+    for j in master_list[a]:
+      if a == 0:
         if j[0].size <= capacity:
-          print(f'CURRENT INDEX: {j[0].index}')
-          print(f'CURRENT SIZE: {j[0].size}')
-          print(f'CURRENT VALUE: {j[0].value} \n')
-      break
+          print(f'INDEX: {j[0].index}')
+          print(f'SIZE: {j[0].size}')
+          print(f'VALUE: {j[0].value} \n')
+      elif a == 1:
+        if j[0].size + j[1].size <= capacity:
+          print(f'INDEX: {j[0].index}, {j[1].index}')
+          print(f'SIZE: {j[0].size + j[1].size}')
+          print(f'VALUE: {j[0].value + j[1].value} \n')
+
+      elif a == 2:
+        if j[0].size + j[1].size + j[2].size <= capacity:
+          print(f'INDEX: {j[0].index}, {j[1].index}, {j[2].index}')
+          print(f'SIZE: {j[0].size + j[1].size  + j[2].size}')
+          print(f'VALUE: {j[0].value + j[1].value + j[2].value} \n')
+
+      elif a == 3:
+        if j[0].size + j[1].size  + j[2].size + j[3].size <= capacity:
+          print(f'INDEX: {j[0].index}, {j[1].index}, {j[2].index}, {j[3].index} ')
+          print(f'SIZE: {j[0].size + j[1].size + j[2].size + j[3].size}')
+          print(f'VALUE: {j[0].value + j[1].value + j[2].value + j[3].value} \n')
+
+      elif a == 4:
+        if j[0].size + j[1].size  + j[2].size + j[3].size + j[4].size <= capacity:
+          print(f'INDEX: {j[0].index}, {j[1].index}, {j[2].index}, {j[3].index}, {j[4].index}')
+          print(f'SIZE: {j[0].size + j[1].size + j[2].size + j[3].size + j[4].size }')
+          print(f'VALUE: {j[0].value + j[1].value + j[2].value + j[3].value + j[4].value} \n')
+    
+    return solve(master_list, a+1)
+    # for i in master_list:
+    #   for j in master_list[1]:
+    #       if j[0].size + j[1].size <= capacity:
+    #         print(f'INDEX: {j[0].index}, {j[1].index}')
+    #         print(f'SIZE: {j[0].size + j[1].size}')
+    #         print(f'VALUE: {j[0].value + j[1].value} \n')
+    #   break
+    # for i in master_list:
+    #   for j in master_list[2]:
+    #       if j[0].size + j[1].size + j[2].size <= capacity:
+    #         print(f'INDEX: {j[0].index}, {j[1].index}, {j[2].index}')
+    #         print(f'SIZE: {j[0].size + j[1].size + j[2].size}')
+    #         print(f'VALUE: {j[0].value + j[1].value + j[2].value} \n')
+    #   break
+    # for i in master_list:
+    #   for j in i:
+    #     if j[0].size <= capacity:
+    #       print(f'CURRENT INDEX: {j[0].index}')
+    #       print(f'CURRENT SIZE: {j[0].size}')
+    #       print(f'CURRENT VALUE: {j[0].value} \n')
+    #   break
     # print(master_list[2])
     #(Item([1,2,3], 42+42+68, 81+42+56))
-
-  solve(master_item_list)
+  print('POTENTIAL SOLUTIONS: \n')
+  solve(master_item_list, 0)
 
   pass
 
