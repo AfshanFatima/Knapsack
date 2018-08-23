@@ -4,9 +4,53 @@ import sys
 from collections import namedtuple
 from itertools import combinations
 
-Item = namedtuple('Item', ['index', 'size', 'value'])
+Item = namedtuple('Item', ['index', 'weight', 'value'])
 
 def knapsack_solver(items, capacity):
+  items.sort(key=lambda x: x.value)
+  weights = [item.weight for item in items]
+  values = [item.value for item in items]
+
+  width = capacity + 1
+  height = len(items)
+  matrix = [[0 for col in range(width)] for row in range(height)]
+
+  max_value = 0
+  solutions = []
+
+  for i in range(len(items)):
+    for j in range(width):
+      if weights[i] > j:
+        matrix[i][j] = matrix[i - 1][j]
+
+      else:
+        old_value = matrix[i - 1][j]
+        maybe_new = values[i] + matrix[i - 1][j - weights[i]]
+        new_value = max(old_value, maybe_new)
+        if new_value not in solutions:
+          solutions.append(new_value)
+        matrix[i][j] = new_value
+
+  #######################################################
+  ##  Useful printing to see what the matrix is doing: ##
+  #######################################################
+
+  #print('\n\n')
+  #print('weight:        0  1  2  3  4  5')
+  #print('              -------------------')
+  #print('[')
+  #for i, line in enumerate(matrix):
+  #  print('  item', i, '    ', line)
+  #print(']')
+  #print('\n')
+  #print('solutions:', solutions)
+
+  max_value = matrix[-1][-1]
+  return max_value
+
+
+def knapsack_solver_brute(items, capacity):
+  Item = namedtuple('Item', ['index', 'size', 'value'])
   master_item_list = []
   for i in range(len(items)):
     master_item_list.append(list(combinations(items, i+1)))
