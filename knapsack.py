@@ -61,6 +61,24 @@ def knapsack_solver(items, capacity):
 
   return f"Value: {total_value}\nSize: {total_size}\nChosen: {total_index}"
 
+def knapsack_greedy(items, capacity):
+  ratios = [
+    (index, item[0], item[2]/ item[1])
+    for index, item in enumerate(items)
+  ]
+  ratios = sorted(ratios, key=lambda x: x[2], reverse=True)
+  # print(ratios)
+  best_combo = []
+  best_cost = 0
+  size = 0
+  for index, item, ratio in ratios: 
+    if items[index][1] + size <= capacity:
+      size += items[index][1]
+      best_cost += items[index][2]
+      # best_combo[index] = item
+      best_combo.append(item)
+  return f"Value: {best_cost}\n Size: {size}\n Chosen: {best_combo}"
+ 
 if __name__ == '__main__':
   if len(sys.argv) > 1:
     capacity = int(sys.argv[2])
@@ -73,7 +91,8 @@ if __name__ == '__main__':
       items.append(Item(int(data[0]), int(data[1]), int(data[2])))
 
     file_contents.close()
+    print(knapsack_greedy(items, capacity))
     # print(brute_force_solver(items, capacity))
-    print(knapsack_solver(items, capacity))
+    # print(knapsack_solver(items, capacity))
   else:
     print('Usage: knapsack.py [filename] [capacity]')
