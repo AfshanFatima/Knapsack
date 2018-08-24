@@ -6,6 +6,26 @@ from itertools import combinations
 
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
+
+def recur_knapsack_solver(items, cap):
+  def knapsack_helper(capacity, no_of_items, weight_lst, val_lst):
+    if capacity == 0 or no_of_items == 0:
+      return 0
+    elif weight_lst[no_of_items - 1] > capacity:
+      return knapsack_helper(capacity, no_of_items - 1, weight_lst, val_lst)
+    else:
+      return max(val_lst[no_of_items - 1] + knapsack_helper(capacity - weight_lst[no_of_items - 1], \
+                 no_of_items - 1, weight_lst, val_lst), \
+                 knapsack_helper(capacity, no_of_items - 1, weight_lst, val_lst))
+
+  w_lst = [item.size for item in items]
+  v_lst = [item.value for item in items]
+  print("weight list: {}".format(w_lst))
+  print("value list: {}".format(v_lst))
+  print("no of items: {}".format(len(items)))
+  return knapsack_helper(cap, len(items), w_lst, v_lst)
+
+
 def knapsack_solver(items, capacity):
   num_of_combinations = 1
   final_size = 0
@@ -44,6 +64,7 @@ if __name__ == '__main__':
       items.append(Item(int(data[0]), int(data[1]), int(data[2])))
 
     file_contents.close()
-    knapsack_solver(items, capacity)
+    # knapsack_solver(items, capacity)
+    print(recur_knapsack_solver(items, capacity))
   else:
     print('Usage: knapsack.py [filename] [capacity]')
