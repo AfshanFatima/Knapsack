@@ -6,7 +6,7 @@ from itertools import combinations
 
 Item = namedtuple('Item', ['index', 'size', 'value'])
 
-
+# Recursive solution
 def recur_knapsack_solver(items, cap):
   def knapsack_helper(capacity, no_of_items, weight_lst, val_lst):
     if capacity == 0 or no_of_items == 0:
@@ -25,7 +25,7 @@ def recur_knapsack_solver(items, cap):
   print("no of items: {}".format(len(items)))
   return knapsack_helper(cap, len(items), w_lst, v_lst)
 
-
+# functional solution using itertools combinations
 def knapsack_solver(items, capacity):
   num_of_combinations = 1
   final_size = 0
@@ -52,6 +52,52 @@ def knapsack_solver(items, capacity):
   print("Total cost: {}".format(final_size))
   print("Total value: {}".format(final_value))
 
+# Solve using value / size ratio
+def ratio_knapsack_solver(items, capacity):
+  ratio_lst = [i.value/i.size for i in items]
+
+  count = 0
+  cost = 0
+  combos = []
+
+  while count < len(ratio_lst):
+    max_ratio = max(ratio_lst)
+    max_ratio_idx = ratio_lst.index(max_ratio)
+    a_item = items[max_ratio_idx]
+    if a_item.size <= capacity - cost:
+      combos.append(a_item)
+      cost += a_item.size
+    items.remove(a_item)
+    ratio_lst.remove(max_ratio)
+
+  final_items = ''
+  for item in sorted(combos):
+    final_items += str(item.index) + ","
+  final_items.rstrip(",")
+
+  final_size = 0
+  for item in combos:
+    final_size += item.size
+
+  final_value = 0
+  for item in combos:
+    final_value += item.value
+
+  print("Items to Select: {}".format(final_items))
+  print("Total cost: {}".format(final_size))
+  print("Total value: {}".format(final_value))
+
+#Memoization
+def memo_knapsack_solver(items, capacity):
+  cache = [[0] * capacity + 1 for _ in range(len(items))]
+
+  for c in range(1, len(cache) + 1):
+    for i in range(len(items)):
+
+
+
+
+
 if __name__ == '__main__':
   if len(sys.argv) > 1:
     capacity = int(sys.argv[2])
@@ -65,6 +111,7 @@ if __name__ == '__main__':
 
     file_contents.close()
     # knapsack_solver(items, capacity)
-    print(recur_knapsack_solver(items, capacity))
+    # print(recur_knapsack_solver(items, capacity))
+    ratio_knapsack_solver(items, capacity)
   else:
     print('Usage: knapsack.py [filename] [capacity]')
